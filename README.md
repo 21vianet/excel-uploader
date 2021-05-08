@@ -1,5 +1,9 @@
 # excel-editor
 
+### 发布
+
+``` npm publish --access public ```
+
 > provide view excel content, edit excel , upload excel file to backup, etc functions to coder
 
 ## Build Setup

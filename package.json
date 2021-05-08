@@ -1,5 +1,5 @@
 {
-  "name": "excel-editor",
+  "name": "excel-editor-project",
   "version": "1.0.0",
   "description": "provide view excel content, edit excel , upload excel file to backup, etc functions to coder",
   "author": "liyanqing <li.yanqing@21vianet.com>",
@@ -11,6 +11,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@21vianet/excel-editor": "^1.0.2",
     "vue": "^2.5.2"
   },
   "devDependencies": {

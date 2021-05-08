@@ -1,17 +1,19 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <HelloWorld/>
+    <ExcelEditor></ExcelEditor>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld'
+import ExcelEditor from '@21vianet/excel-editor'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    ExcelEditor
   }
 }
 </script>
