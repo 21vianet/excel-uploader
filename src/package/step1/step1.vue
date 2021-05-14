@@ -45,7 +45,7 @@
                size="small"
                @click="next"
                :disabled="currentFile === null">
-      下一步33
+      下一步
     </el-button>
   </div>
 </template>
@@ -107,7 +107,9 @@
       },
       onDownloadProgress (progressEvent) {
         // const progress = parseInt((progressEvent.loaded / progressEvent.total) * 100)
-        console.log(progressEvent)
+        this.$nextTick(() => {
+          console.log(progressEvent)
+        })
       },
       downloadTemplate () {
         if (this.DownloadTemplateUrl === '') {

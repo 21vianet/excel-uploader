@@ -19,3 +19,15 @@ export function GetTemplate (url, body, onDownloadProgress) {
     onDownloadProgress: onDownloadProgress
   })
 }
+
+export function UploadFile (url, formData, onUploadProgress) {
+  return request({
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    },
+    url: url,
+    method: 'post',
+    data: formData,
+    onUploadProgress: onUploadProgress
+  })
+}

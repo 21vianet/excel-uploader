@@ -13,10 +13,12 @@
            :download-template-request-body="config.DownloadRequestBody"
            :download-template-name="config.DownloadTemplateName">
     </step1>
-    <step2 @next="next"
-           v-if="currentStep === 2"
-           :upload-file="currentUploadFile"></step2>
+    <step2 v-if="currentStep === 2"
+           @uploadResult="uploadResult"
+           :upload-file="currentUploadFile"
+           :upload-file-url="config.UploadFileUrl"></step2>
     <step3 v-if="currentStep === 3"
+           :upload-result="result"
            @backToMenu="backToMenu"
            @reUpload="reUpload">
     </step3>
@@ -40,7 +42,8 @@
             DownloadErrorMessageUrl: '',
             DownloadTemplateName: 'template.xml',
             DownloadRequestBody: {},
-            MaxUploadFileSize: 5
+            MaxUploadFileSize: 5,
+            UploadFileUrl: ''
           }
         }
       }
@@ -48,6 +51,7 @@
     data () {
       return {
         currentStep: 1,
+        result: null,
         currentUploadFile: null
       }
     },
@@ -60,6 +64,10 @@
       },
       setUploadFile (file) {
         this.currentUploadFile = file
+      },
+      uploadResult (result) {
+        this.result = result
+        this.next()
       },
       backToMenu () {
         this.$emit('backToMenu')
