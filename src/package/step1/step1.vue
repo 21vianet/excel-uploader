@@ -45,7 +45,7 @@
                size="small"
                @click="next"
                :disabled="currentFile === null">
-      下一步
+      下一步33
     </el-button>
   </div>
 </template>
@@ -149,7 +149,7 @@
 
   div.panel-container {
     height: 140px;
-    min-width: 560px;
+    width: 560px;
     border: 1px solid #efefef;
     margin-top: 25px;
     display: flex;

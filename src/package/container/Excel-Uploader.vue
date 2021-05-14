@@ -24,9 +24,9 @@
 </template>
 
 <script>
-  import Step1 from '@/package/step1/step1'
-  import Step2 from '@/package/step2/step2'
-  import Step3 from '@/package/step3/step3'
+  import Step1 from '../step1/step1'
+  import Step2 from '../step2/step2'
+  import Step3 from '../step3/step3'
 
   export default {
     name: 'Excel-Uploader',
