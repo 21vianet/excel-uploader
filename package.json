@@ -1,7 +1,7 @@
 {
-  "name": "excel-editor-project",
+  "name": "excel-uploader",
   "version": "1.0.0",
-  "description": "provide view excel content, edit excel , upload excel file to backup, etc functions to coder",
+  "description": "provide download excel from backend, upload excel file to backend, etc functions to coder",
   "author": "liyanqing <li.yanqing@21vianet.com>",
   "private": true,
   "scripts": {
@@ -11,7 +11,9 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "@21vianet/excel-editor": "^1.0.2",
+    "@21vianet/excel-uploader": "^1.0.2",
+    "axios": "^0.21.1",
+    "element-ui": "^2.13.0",
     "vue": "^2.5.2"
   },
   "devDependencies": {
