@@ -1,0 +1,12 @@
+a.el-upload-list__item-name {
+  color: blue;
+}
+
+.el-progress-bar__outer {
+  border: 1px solid #2387c0;
+  background-color: transparent;
+}
+
+.el-progress-bar__inner {
+  background-color: #2387c0;
+}
