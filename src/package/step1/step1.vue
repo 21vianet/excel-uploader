@@ -107,7 +107,9 @@
       },
       onDownloadProgress (progressEvent) {
         // const progress = parseInt((progressEvent.loaded / progressEvent.total) * 100)
-        console.log(progressEvent)
+        this.$nextTick(() => {
+          console.log(progressEvent)
+        })
       },
       downloadTemplate () {
         if (this.DownloadTemplateUrl === '') {
@@ -149,7 +151,7 @@
 
   div.panel-container {
     height: 140px;
-    min-width: 560px;
+    width: 560px;
     border: 1px solid #efefef;
     margin-top: 25px;
     display: flex;

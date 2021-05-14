@@ -1,9 +1,10 @@
 <template>
   <div class="step3-container">
-    <img alt="" src="../images/complete.png">
+    <img v-if="completeUpload" alt="" src="../images/complete.png">
+    <el-icon v-else class="el-icon-error error-icon"></el-icon>
     <span class="title">数据导入完成</span>
-    <span class="tip">导入结果：</span>
-    <div class="import-result-container">
+    <span v-if="completeUpload" class="tip">导入结果：</span>
+    <div v-if="completeUpload" class="import-result-container">
       <span class="count">数据量条数：{{count}}</span>
       <div class="import-result-info">
         <div style="display: flex;justify-content: center">
@@ -16,7 +17,8 @@
           <el-button @click="exportErrorMessage"
                      class="export el-button--warning"
                      size="small"
-                     icon="el-icon-top-right">
+                     icon="el-icon-top-right"
+                     :disabled="failedCount === 0">
             导出异常
           </el-button>
         </div>
@@ -25,11 +27,17 @@
         </div>
       </div>
     </div>
+    <el-alert v-else center
+              effect="dark"
+              type="error"
+              :closable="false"
+              :title="errorResultMessage"
+              style="margin: 50px;width: auto">
+    </el-alert>
     <div style="margin-top: 30px;">
       <el-button class="el-button--info" @click="reUpload">重新上传</el-button>
       <el-button class="el-button--primary" @click="backToMenu">返回</el-button>
     </div>
-
   </div>
 </template>
 
@@ -38,16 +46,22 @@
     name: 'step3',
     data () {
       return {
-        count: 1,
-        successCount: 1,
-        failedCount: 2,
-        errorMessage: '这里是异常情况说明'
+        count: 0,
+        successCount: 0,
+        failedCount: 0,
+        completeUpload: true,
+        errorMessage: '',
+        errorResultMessage: ''
       }
     },
     props: {
       downloadErrorMessage: {
         type: String,
         default: ''
+      },
+      uploadResult: {
+        type: Object,
+        default: null
       }
     },
     methods: {
@@ -61,6 +75,16 @@
         if (this.downloadErrorMessage === '') {
 
         }
+      }
+    },
+    mounted () {
+      if (!this.uploadResult) {
+        this.$message.error('结果数据丢失！')
+        this.completeUpload = false
+        this.errorResultMessage = '结果数据丢失！'
+      } else if (!this.uploadResult.success) {
+        this.completeUpload = true
+        this.errorMessage = this.uploadResult.message
       }
     }
   }
@@ -88,6 +112,12 @@
     margin-top: 50px;
     width: 70px;
     height: 70px;
+  }
+
+  div.step3-container .error-icon {
+    color: red;
+    font-size: 70px;
+    margin-top: 50px;
   }
 
   div.import-result-container {
@@ -144,6 +174,7 @@
 
   div.error-message-container span.error-message {
     font-size: small;
+    text-align: left;
   }
 
 </style>

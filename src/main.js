@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import './package/css/uploader-custom.css'
+import '@21vianet/excel-uploader/css/uploader-custom.css'
 
 Vue.use(ElementUI)
 

@@ -6,7 +6,8 @@
 
 <script>
   import HelloWorld from './components/HelloWorld'
-  import ExcelUploader from '@21vianet/excel-uploader'
+  import ExcelUploader from './package'
+  // import ExcelUploader from '@21vianet/excel-uploader'
 
   export default {
     name: 'App',
@@ -18,12 +19,14 @@
       getConfig () {
         return {
           MaxUploadFileSize: 3,
+          DownloadTemplateName: 'template.xls',
           DownLoadTemplateUrl: '/dcomsp-installation/dcOperateDevice/exportForEquipmentTemplate',
           DownloadRequestBody: {
             't': {
               'unifiedDatacenterCode': 'S001'
             }
-          }
+          },
+          UploadFileUrl: '/dcomsp-installation/dcOperateDevice/importForOperateConfigurationDevice'
         }
       },
       backToMenu () {
