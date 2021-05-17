@@ -1,7 +1,7 @@
 # Excel-Uploader
 
 ### Overview
- The Excel-Uploader is a block of VUE code which provides such as
+ The Excel-Uploader is a component of VUE which provides such as
  download template excel file and upload excel file with backend, etc functions.
  It can helps developer coding quickly.
  
@@ -40,11 +40,13 @@
  
  ``` 
  {                
-   DownLoadTemplateUrl: '',   
+   DownLoadTemplateUrl: '',
+   DownloadTemplateRequestBody: {},
    DownloadErrorMessageUrl: '',
-   DownloadTemplateName: 'template.xml',
-   DownloadRequestBody: {},
-   MaxUploadFileSize: 5
+   DownloadErrorMessageRequestBody: {},
+   DownloadTemplateName: 'template.xlsx',
+   MaxUploadFileSize: 5,
+   UploadFileUrl: ''
  }
  
  ```
@@ -53,7 +55,7 @@
  
 ### Repository
 
-  `https://github.com/liyanqing-21vianet/excel-editor.git`
+  `https://github.com/21vianet/excel-uploader.git`
 
 ### Republic
 

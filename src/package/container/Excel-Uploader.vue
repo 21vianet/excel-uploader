@@ -10,7 +10,7 @@
            v-if="currentStep === 1"
            :max-upload-file-size="config.MaxUploadFileSize"
            :download-template-url="config.DownLoadTemplateUrl"
-           :download-template-request-body="config.DownloadRequestBody"
+           :download-template-request-body="config.DownloadTemplateRequestBody"
            :download-template-name="config.DownloadTemplateName">
     </step1>
     <step2 v-if="currentStep === 2"
@@ -18,6 +18,8 @@
            :upload-file="currentUploadFile"
            :upload-file-url="config.UploadFileUrl"></step2>
     <step3 v-if="currentStep === 3"
+           :download-error-message-url="config.DownloadErrorMessageUrl"
+           :download-error-message-request-body="config.DownloadErrorMessageRequestBody"
            :upload-result="result"
            @backToMenu="backToMenu"
            @reUpload="reUpload">
@@ -39,9 +41,10 @@
         default: function () {
           return {
             DownLoadTemplateUrl: '',
+            DownloadTemplateRequestBody: {},
             DownloadErrorMessageUrl: '',
-            DownloadTemplateName: 'template.xml',
-            DownloadRequestBody: {},
+            DownloadErrorMessageRequestBody: {},
+            DownloadTemplateName: 'template.xlsx',
             MaxUploadFileSize: 5,
             UploadFileUrl: ''
           }

@@ -9,7 +9,9 @@
         <span class="tip">
           请按照数据模板的格式准备导入数据，模板中的表头名称不可修改，颜色标注的为必须输入项，表头行不能删除。单次导入数据不得超过1000条。
         </span>
-        <el-link type="primary" style="margin-top: 10px;" @click="downloadTemplate">下载模版</el-link>
+        <el-link type="primary" style="margin-top: 10px;" :disabled="downloading"
+                 v-loading = "downloading"
+                 @click="downloadTemplate">下载模版</el-link>
       </div>
     </div>
     <div class="panel-container">
@@ -58,6 +60,7 @@
     data () {
       return {
         currentFile: null,
+        downloading: false,
         fileList: []
       }
     },
@@ -72,7 +75,7 @@
       },
       DownloadTemplateName: {
         type: String,
-        default: ''
+        default: 'template.xlsx'
       },
       DownloadTemplateRequestBody: {
         type: Object,
@@ -108,28 +111,32 @@
       onDownloadProgress (progressEvent) {
         // const progress = parseInt((progressEvent.loaded / progressEvent.total) * 100)
         this.$nextTick(() => {
-          console.log(progressEvent)
         })
       },
       downloadTemplate () {
-        if (this.DownloadTemplateUrl === '') {
+        if (!this.DownloadTemplateUrl) {
           this.$message.warning('请提供有效的下载模版URL！')
+        } else if (!this.DownloadTemplateRequestBody) {
+          this.$message.warning('请提供有效的下载模版请求的Body！')
+        } else {
+          this.downloading = true
+          GetTemplate(this.DownloadTemplateUrl, this.DownloadTemplateRequestBody, this.onDownloadProgress).then((res) => {
+            const link = document.createElement('a')
+            let blob = new Blob([res.data], {type: 'application/vnd.ms-excel'})
+            link.style.display = 'none'
+            link.href = URL.createObjectURL(blob)
+            link.download = this.DownloadTemplateName || 'template.xlsx'
+            document.body.appendChild(link)
+            link.click()
+            URL.revokeObjectURL(link.href)
+            document.body.removeChild(link)
+            this.$message.success('下载模版成功!')
+            this.downloading = false
+          }).catch(() => {
+            this.downloading = false
+            this.$message.error('网络连接错误')
+          })
         }
-        GetTemplate(this.DownloadTemplateUrl, this.DownloadTemplateRequestBody, this.onDownloadProgress).then((res) => {
-          console.log(this.DownloadTemplateName)
-          const link = document.createElement('a')
-          let blob = new Blob([res.data], {type: 'application/vnd.ms-excel'})
-          link.style.display = 'none'
-          link.href = URL.createObjectURL(blob)
-          link.download = this.DownloadTemplateName
-          document.body.appendChild(link)
-          link.click()
-          URL.revokeObjectURL(link.href) // 释放URL 对象
-          document.body.removeChild(link)
-          this.$message.success('下载模版成功!')
-        }).catch(() => {
-          this.$message.error('网络连接错误')
-        })
       }
     },
     mounted () {

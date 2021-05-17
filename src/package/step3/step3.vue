@@ -42,6 +42,8 @@
 </template>
 
 <script>
+  import {ExportErrorMessage} from '../api'
+
   export default {
     name: 'step3',
     data () {
@@ -55,9 +57,15 @@
       }
     },
     props: {
-      downloadErrorMessage: {
+      DownloadErrorMessageUrl: {
         type: String,
         default: ''
+      },
+      DownloadErrorMessageRequestBody: {
+        type: Object,
+        default: function () {
+          return {}
+        }
       },
       uploadResult: {
         type: Object,
@@ -71,9 +79,22 @@
       backToMenu () {
         this.$emit('backToMenu')
       },
+      onDownloadProgress (progressEvent) {
+        // const progress = parseInt((progressEvent.loaded / progressEvent.total) * 100)
+        this.$nextTick(() => {
+        })
+      },
       exportErrorMessage () {
-        if (this.downloadErrorMessage === '') {
+        if (!this.DownloadErrorMessageUrl) {
+          this.completeUpload = true
+          this.errorMessage = '请提供有效的导出异常信息的API'
+        } else if (!this.DownloadErrorMessageRequestBody) {
+          this.completeUpload = true
+          this.errorMessage = '请提供有效的导出异常信息请求的Body'
+        } else {
+          ExportErrorMessage(this.DownloadErrorMessageUrl, this.downloadErrorMessage, this.onDownloadProgress).then(() => {
 
+          })
         }
       }
     },

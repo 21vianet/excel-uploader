@@ -22,7 +22,7 @@
         type: Object,
         default: null
       },
-      uploadFileUrl: {
+      UploadFileUrl: {
         type: String,
         default: ''
       }
@@ -45,13 +45,21 @@
     },
     mounted () {
       if (!this.uploadFile) {
-        this.$message.error('上传文件丢失')
-      } else if (this.uploadFileUrl === '') {
-        this.$message.warning('上传文件丢失')
+        this.$emit('uploadResult', {
+          success: false,
+          message: '上传文件丢失'
+        })
+        this.$emit('next')
+      } else if (this.UploadFileUrl === '') {
+        this.$emit('uploadResult', {
+          success: false,
+          message: '请提供有效的上传文件API'
+        })
+        this.$emit('next')
       } else {
         const formData = new FormData()
         formData.append('file', this.uploadFile.raw, this.uploadFile.name)
-        UploadFile(this.uploadFileUrl, formData, this.onUploadFileProgress).then((res) => {
+        UploadFile(this.UploadFileUrl, formData, this.onUploadFileProgress).then((res) => {
           if (Reflect.has(res.data, 'success') && res.data.success === false) {
             this.$emit('uploadResult', {
               success: false,
@@ -67,7 +75,11 @@
           }
           this.$emit('next')
         }).catch(() => {
-          this.$message.error('网络连接错误')
+          this.$emit('uploadResult', {
+            success: false,
+            message: '网络连接错误'
+          })
+          this.$emit('next')
         })
       }
     }
