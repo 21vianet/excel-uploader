@@ -9,9 +9,8 @@
            @uploadFile="setUploadFile"
            v-if="currentStep === 1"
            :max-upload-file-size="config.MaxUploadFileSize"
-           :download-template-url="config.DownLoadTemplateUrl"
-           :download-template-request-body="config.DownloadTemplateRequestBody"
-           :download-template-name="config.DownloadTemplateName">
+           :download-template-url="config.DownloadTemplateUrl"
+           :download-template-request-body="config.DownloadTemplateRequestBody">
     </step1>
     <step2 v-if="currentStep === 2"
            @uploadResult="uploadResult"
@@ -40,11 +39,10 @@
         type: Object,
         default: function () {
           return {
-            DownLoadTemplateUrl: '',
+            DownloadTemplateUrl: '',
             DownloadTemplateRequestBody: {},
             DownloadErrorMessageUrl: '',
             DownloadErrorMessageRequestBody: {},
-            DownloadTemplateName: 'template.xlsx',
             MaxUploadFileSize: 5,
             UploadFileUrl: ''
           }

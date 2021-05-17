@@ -73,10 +73,6 @@
         type: String,
         default: ''
       },
-      DownloadTemplateName: {
-        type: String,
-        default: 'template.xlsx'
-      },
       DownloadTemplateRequestBody: {
         type: Object,
         default: function () {
@@ -125,7 +121,7 @@
             let blob = new Blob([res.data], {type: 'application/vnd.ms-excel'})
             link.style.display = 'none'
             link.href = URL.createObjectURL(blob)
-            link.download = this.DownloadTemplateName || 'template.xlsx'
+            link.download = decodeURIComponent(res.headers['content-disposition'].split('=')[1])
             document.body.appendChild(link)
             link.click()
             URL.revokeObjectURL(link.href)

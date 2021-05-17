@@ -19,8 +19,7 @@
       getConfig () {
         return {
           MaxUploadFileSize: 3,
-          DownloadTemplateName: 'template.xls',
-          DownLoadTemplateUrl: '/dcomsp-installation/dcOperateDevice/exportForEquipmentTemplate',
+          DownloadTemplateUrl: '/dcomsp-installation/dcOperateDevice/exportForEquipmentTemplate',
           DownloadTemplateRequestBody: {
             't': {
               'unifiedDatacenterCode': 'S001'
