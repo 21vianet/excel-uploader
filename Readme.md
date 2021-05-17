@@ -44,7 +44,6 @@
    DownloadTemplateRequestBody: {},
    DownloadErrorMessageUrl: '',
    DownloadErrorMessageRequestBody: {},
-   DownloadTemplateName: 'template.xlsx',
    MaxUploadFileSize: 5,
    UploadFileUrl: ''
  }
