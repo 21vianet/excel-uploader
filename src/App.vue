@@ -21,16 +21,18 @@
           MaxUploadFileSize: 3,
           DownloadTemplateName: 'template.xls',
           DownLoadTemplateUrl: '/dcomsp-installation/dcOperateDevice/exportForEquipmentTemplate',
-          DownloadRequestBody: {
+          DownloadTemplateRequestBody: {
             't': {
               'unifiedDatacenterCode': 'S001'
             }
           },
+          DownloadErrorMessageUrl: '',
+          DownloadErrorMessageRequestBody: {},
           UploadFileUrl: '/dcomsp-installation/dcOperateDevice/importForOperateConfigurationDevice'
         }
       },
       backToMenu () {
-        console.log('backToMenu')
+        // insert your code to response the back event.
       }
     }
   }

@@ -15,7 +15,20 @@ export function GetTemplate (url, body, onDownloadProgress) {
     url: url,
     method: 'post',
     data: body,
-    responseType: 'arraybuffer',
+    responseType: 'blob',
+    onDownloadProgress: onDownloadProgress
+  })
+}
+
+export function ExportErrorMessage (url, body, onDownloadProgress) {
+  return request({
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    url: url,
+    method: 'post',
+    data: body,
+    responseType: 'blob',
     onDownloadProgress: onDownloadProgress
   })
 }
