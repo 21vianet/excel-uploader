@@ -25,8 +25,9 @@
               'unifiedDatacenterCode': 'S001'
             }
           },
-          DownloadErrorMessageUrl: '',
+          DownloadErrorMessageUrl: '/dcomsp-installation/dcOperateDevice/download',
           DownloadErrorMessageRequestBody: {},
+          UploadProcessPercentUrl: '/dcomsp-installation/dcOperateDevice/caseAddStatus',
           UploadFileUrl: '/dcomsp-installation/dcOperateDevice/importForOperateConfigurationDevice'
         }
       },

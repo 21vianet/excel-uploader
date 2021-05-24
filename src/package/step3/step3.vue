@@ -5,10 +5,10 @@
     <span class="title">数据导入完成</span>
     <span v-if="completeUpload" class="tip">导入结果：</span>
     <div v-if="completeUpload" class="import-result-container">
-      <span class="count">数据量条数：{{count}}</span>
+      <span class="count">数据量条数：{{allCount}}</span>
       <div class="import-result-info">
         <div style="display: flex;justify-content: center">
-          <span class="result">成功导入数据：<span style="color: green"><b>{{successCount}}</b></span></span>
+          <span class="result">成功导入数据：<span style="color: green"><b>{{successCount}}</b>，</span></span>
           <span class="result">异常导入数据：<span style="color: red"><b>{{failedCount}}</b></span>
         </span>
         </div>
@@ -18,7 +18,8 @@
                      class="export el-button--warning"
                      size="small"
                      icon="el-icon-top-right"
-                     :disabled="failedCount === 0">
+                     :loading="downloading"
+                     :disabled="failedCount === 0 || downloading">
             导出异常
           </el-button>
         </div>
@@ -46,14 +47,20 @@
 
   export default {
     name: 'step3',
+    computed: {
+      allCount: function () {
+        return this.successCount + this.failedCount
+      }
+    },
     data () {
       return {
-        count: 0,
         successCount: 0,
         failedCount: 0,
         completeUpload: true,
         errorMessage: '',
-        errorResultMessage: ''
+        errorResultMessage: '',
+        downloadErrorParams: {},
+        downloading: false
       }
     },
     props: {
@@ -79,11 +86,6 @@
       backToMenu () {
         this.$emit('backToMenu')
       },
-      onDownloadProgress (progressEvent) {
-        // const progress = parseInt((progressEvent.loaded / progressEvent.total) * 100)
-        this.$nextTick(() => {
-        })
-      },
       exportErrorMessage () {
         if (!this.DownloadErrorMessageUrl) {
           this.completeUpload = true
@@ -92,8 +94,23 @@
           this.completeUpload = true
           this.errorMessage = '请提供有效的导出异常信息请求的Body'
         } else {
-          ExportErrorMessage(this.DownloadErrorMessageUrl, this.downloadErrorMessage, this.onDownloadProgress).then(() => {
-
+          this.downloading = true
+          ExportErrorMessage(this.DownloadErrorMessageUrl, this.downloadErrorParams).then((res) => {
+            const link = document.createElement('a')
+            let blob = new Blob([res.data], {type: 'application/vnd.ms-excel'})
+            link.style.display = 'none'
+            link.href = URL.createObjectURL(blob)
+            link.download = decodeURIComponent(res.headers['content-disposition'].split('=')[1])
+            document.body.appendChild(link)
+            link.click()
+            URL.revokeObjectURL(link.href)
+            document.body.removeChild(link)
+            this.$message.success('下载模版成功!')
+          }).catch((err) => {
+            this.errorMessage = err.message
+            this.$message.error('网络连接错误')
+          }).finally(() => {
+            this.downloading = false
           })
         }
       }
@@ -103,8 +120,11 @@
         this.$message.error('结果数据丢失！')
         this.completeUpload = false
         this.errorResultMessage = '结果数据丢失！'
-      } else if (!this.uploadResult.success) {
+      } else if (this.uploadResult.success) {
         this.completeUpload = true
+        this.successCount = this.uploadResult.successCount
+        this.failedCount = this.uploadResult.failedCount
+        this.downloadErrorParams = this.uploadResult.params
         this.errorMessage = this.uploadResult.message
       }
     }

@@ -14,6 +14,7 @@
     </step1>
     <step2 v-if="currentStep === 2"
            @uploadResult="uploadResult"
+           :upload-process-percent-url="config.UploadProcessPercentUrl"
            :upload-file="currentUploadFile"
            :upload-file-url="config.UploadFileUrl"></step2>
     <step3 v-if="currentStep === 3"
@@ -44,6 +45,7 @@
             DownloadErrorMessageUrl: '',
             DownloadErrorMessageRequestBody: {},
             MaxUploadFileSize: 5,
+            UploadProcessPercentUrl: '',
             UploadFileUrl: ''
           }
         }

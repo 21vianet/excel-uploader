@@ -1,19 +1,17 @@
 <template>
   <div class="step2-container">
-    <span class="percentage">{{curPercentage}}%</span>
+    <span class="percentage">{{curPercentage}}%({{successCount}}/{{allCount}})</span>
     <el-progress style="margin-top: 30px"
                  :show-text="false"
                  :stroke-width="26"
                  :percentage="curPercentage">
     </el-progress>
-    <span class="tip" @click="next">
-      正在导入数据，请勿关闭或刷新页面
-    </span>
+    <span class="tip">正在导入数据，请勿关闭或刷新页面</span>
   </div>
 </template>
 
 <script>
-  import {UploadFile} from '../api'
+  import {UploadFile, GetUploadProgress} from '../api'
 
   export default {
     name: 'step2',
@@ -25,25 +23,39 @@
       UploadFileUrl: {
         type: String,
         default: ''
+      },
+      UploadProcessPercentUrl: {
+        type: String,
+        default: ''
       }
     },
     data () {
       return {
-        curPercentage: 0
+        curPercentage: 0,
+        successCount: 0,
+        allCount: 0,
+        needToUpdateProgress: false
       }
     },
     methods: {
-      next () {
-        this.$emit('next')
+      updateProgressMethod () {
+        if (this.UploadProcessPercentUrl) {
+          GetUploadProgress(this.UploadProcessPercentUrl).then((res) => {
+            if (this.needToUpdateProgress) {
+              this.successCount = res.data.number
+              this.allCount = res.data.allNumber
+              this.curPercentage = Math.round(this.successCount * 10000 / this.allCount) / 100
+              setTimeout(this.updateProgressMethod, 300)
+            }
+          })
+        }
       }
     },
-    onUploadFileProgress (progress) {
-      this.$nextTick(() => {
-        // this.curPercentage = Math.round(progress.total)
-        console.log(progress)
-      })
-    },
     mounted () {
+      this.curPercentage = 0
+      this.successCount = 0
+      this.allCount = 0
+      this.needToUpdateProgress = false
       if (!this.uploadFile) {
         this.$emit('uploadResult', {
           success: false,
@@ -59,7 +71,8 @@
       } else {
         const formData = new FormData()
         formData.append('file', this.uploadFile.raw, this.uploadFile.name)
-        UploadFile(this.UploadFileUrl, formData, this.onUploadFileProgress).then((res) => {
+        this.updateProgressMethod()
+        UploadFile(this.UploadFileUrl, formData).then((res) => {
           if (Reflect.has(res.data, 'success') && res.data.success === false) {
             this.$emit('uploadResult', {
               success: false,
@@ -68,19 +81,24 @@
           } else {
             this.$emit('uploadResult', {
               success: true,
-              successCount: 100,
-              failedCount: 20
+              successCount: res.data.data.successSums,
+              failedCount: res.data.data.failueSums,
+              message: res.data.data.content,
+              params: res.data.data.param
             })
             this.$message.success('上传文件完成')
           }
           this.$emit('next')
-        }).catch(() => {
+        }).catch((err) => {
           this.$emit('uploadResult', {
             success: false,
-            message: '网络连接错误'
+            message: err.message
           })
           this.$emit('next')
+        }).finally(() => {
+          this.needToUpdateProgress = false
         })
+        this.needToUpdateProgress = true
       }
     }
   }

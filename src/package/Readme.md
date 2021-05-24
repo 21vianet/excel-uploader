@@ -39,12 +39,13 @@
  4,Give a object for config ExcelUploader component. All the config params as below:
  
  ``` 
- {                
-   DownLoadTemplateUrl: '',
+ {
+   MaxUploadFileSize: 3,
+   DownloadTemplateUrl: '',
    DownloadTemplateRequestBody: {},
    DownloadErrorMessageUrl: '',
    DownloadErrorMessageRequestBody: {},
-   MaxUploadFileSize: 5,
+   UploadProcessPercentUrl: '',
    UploadFileUrl: ''
  }
  ```
