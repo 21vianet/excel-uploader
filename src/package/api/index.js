@@ -2,45 +2,44 @@ import Axios from 'axios'
 
 const request = Axios.create({
   baseURL: '',
-  timeout: 30000
+  timeout: 60000,
+  params: {timeStamp: Date.now()}
 })
 
 request.defaults.headers['Content-Type'] = 'application/json'
 
-export function GetTemplate (url, body, onDownloadProgress) {
+export function GetTemplate (url, body) {
   return request({
-    headers: {
-      'Content-Type': 'application/json'
-    },
     url: url,
     method: 'post',
     data: body,
-    responseType: 'blob',
-    onDownloadProgress: onDownloadProgress
+    responseType: 'blob'
   })
 }
 
-export function ExportErrorMessage (url, body, onDownloadProgress) {
+export function ExportErrorMessage (url, body) {
   return request({
-    headers: {
-      'Content-Type': 'application/json'
-    },
     url: url,
     method: 'post',
     data: body,
-    responseType: 'blob',
-    onDownloadProgress: onDownloadProgress
+    responseType: 'blob'
   })
 }
 
-export function UploadFile (url, formData, onUploadProgress) {
+export function UploadFile (url, formData) {
   return request({
     headers: {
       'Content-Type': 'multipart/form-data'
     },
     url: url,
     method: 'post',
-    data: formData,
-    onUploadProgress: onUploadProgress
+    data: formData
+  })
+}
+
+export function GetUploadProgress (url) {
+  return request({
+    url: url,
+    method: 'get'
   })
 }

@@ -9,9 +9,12 @@
         <span class="tip">
           请按照数据模板的格式准备导入数据，模板中的表头名称不可修改，颜色标注的为必须输入项，表头行不能删除。单次导入数据不得超过1000条。
         </span>
-        <el-link type="primary" style="margin-top: 10px;" :disabled="downloading"
-                 v-loading = "downloading"
-                 @click="downloadTemplate">下载模版</el-link>
+        <el-link type="primary" style="margin-top: 10px;"
+                 :disabled="downloading"
+                 v-loading="downloading"
+                 @click="downloadTemplate">
+          下载模版
+        </el-link>
       </div>
     </div>
     <div class="panel-container">
@@ -29,12 +32,14 @@
                    accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                    :auto-upload="false"
                    :multiple="false"
+                   :disabled="downloading"
                    :limit="1"
                    :on-change="onFileChange"
                    :on-remove="handleRemove"
                    :show-file-list="true"
                    :file-list="fileList">
           <el-link v-if="currentFile === null"
+                   :disabled="downloading"
                    type="primary"
                    style="margin-top: 10px;">
             上传文件
@@ -46,7 +51,7 @@
                style="margin-top: 30px"
                size="small"
                @click="next"
-               :disabled="currentFile === null">
+               :disabled="currentFile === null || downloading">
       下一步
     </el-button>
   </div>
@@ -104,11 +109,6 @@
       handleRemove (file, fileList) {
         this.currentFile = null
       },
-      onDownloadProgress (progressEvent) {
-        // const progress = parseInt((progressEvent.loaded / progressEvent.total) * 100)
-        this.$nextTick(() => {
-        })
-      },
       downloadTemplate () {
         if (!this.DownloadTemplateUrl) {
           this.$message.warning('请提供有效的下载模版URL！')
@@ -116,7 +116,7 @@
           this.$message.warning('请提供有效的下载模版请求的Body！')
         } else {
           this.downloading = true
-          GetTemplate(this.DownloadTemplateUrl, this.DownloadTemplateRequestBody, this.onDownloadProgress).then((res) => {
+          GetTemplate(this.DownloadTemplateUrl, this.DownloadTemplateRequestBody).then((res) => {
             const link = document.createElement('a')
             let blob = new Blob([res.data], {type: 'application/vnd.ms-excel'})
             link.style.display = 'none'
@@ -127,10 +127,10 @@
             URL.revokeObjectURL(link.href)
             document.body.removeChild(link)
             this.$message.success('下载模版成功!')
-            this.downloading = false
           }).catch(() => {
-            this.downloading = false
             this.$message.error('网络连接错误')
+          }).finally(() => {
+            this.downloading = false
           })
         }
       }

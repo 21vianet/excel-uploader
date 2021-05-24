@@ -39,15 +39,15 @@
  4,Give a object for config ExcelUploader component. All the config params as below:
  
  ``` 
- {                
-   DownLoadTemplateUrl: '',
+ {
+   MaxUploadFileSize: 3,
+   DownloadTemplateUrl: '',
    DownloadTemplateRequestBody: {},
    DownloadErrorMessageUrl: '',
    DownloadErrorMessageRequestBody: {},
-   MaxUploadFileSize: 5,
+   UploadProcessPercentUrl: '',
    UploadFileUrl: ''
  }
- 
  ```
  
  5,You can subscript the @backToMenu event that be triggered when user click the 'Back' button in step 3. 
