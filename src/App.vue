@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="app">
     <ExcelUploader :config="getConfig()" @backToMenu="backToMenu"></ExcelUploader>
   </div>
 </template>
