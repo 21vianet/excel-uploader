@@ -1,6 +1,6 @@
 {
   "name": "@21vianet/excel-uploader",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Provide download excel file and upload excel file from backend, etc functions.",
   "main": "index.js",
   "private": false,

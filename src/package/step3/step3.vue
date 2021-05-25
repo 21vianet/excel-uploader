@@ -2,8 +2,7 @@
   <div class="step3-container">
     <img v-if="completeUpload" alt="" src="../images/complete.png">
     <el-icon v-else class="el-icon-error error-icon"></el-icon>
-    <span class="title">数据导入完成</span>
-    <span v-if="completeUpload" class="tip">导入结果：</span>
+    <span class="title">数据导入完成331</span>
     <div v-if="completeUpload" class="import-result-container">
       <span class="count">数据量条数：{{allCount}}</span>
       <div class="import-result-info">
@@ -33,9 +32,9 @@
               type="error"
               :closable="false"
               :title="errorResultMessage"
-              style="margin: 50px;width: auto">
+              style="margin: 20px;width: auto">
     </el-alert>
-    <div style="margin-top: 30px;">
+    <div style="margin-top: 10px;">
       <el-button class="el-button--info" @click="reUpload">重新上传</el-button>
       <el-button class="el-button--primary" @click="backToMenu">返回</el-button>
     </div>
@@ -130,33 +129,33 @@
   }
 
   div.step3-container span.title {
-    margin-top: 20px;
+    margin-top: 10px;
     font-size: large;
   }
 
   div.step3-container span.tip {
     color: gray;
-    margin-top: 20px;
+    margin-top: 10px;
     font-size: small;
   }
 
   div.step3-container img {
-    margin-top: 50px;
-    width: 70px;
-    height: 70px;
+    margin-top: 10px;
+    width: 50px;
+    height: 50px;
   }
 
   div.step3-container .error-icon {
     color: red;
-    font-size: 70px;
-    margin-top: 50px;
+    font-size: 50px;
+    margin-top: 10px;
   }
 
   div.import-result-container {
     margin-top: 10px;
     padding: 10px;
-    width: 500px;
-    height: 218px;
+    width: 450px;
+    height: 168px;
     border-radius: 20px;
     border: 1px dotted darkgreen;
     display: flex;
@@ -171,7 +170,7 @@
   }
 
   div.import-result-info {
-    padding: 15px;
+    padding: 5px;
     height: 100%;
     display: flex;
     flex-direction: column;
