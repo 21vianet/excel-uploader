@@ -9,7 +9,7 @@
         <span class="tip">
           请按照数据模板的格式准备导入数据，模板中的表头名称不可修改，颜色标注的为必须输入项，表头行不能删除。单次导入数据不得超过1000条。
         </span>
-        <el-link type="primary" style="margin-top: 10px;"
+        <el-link type="primary" style="margin-top: 5px;"
                  :disabled="downloading"
                  v-loading="downloading"
                  @click="downloadTemplate">
@@ -41,7 +41,7 @@
           <el-link v-if="currentFile === null"
                    :disabled="downloading"
                    type="primary"
-                   style="margin-top: 10px;">
+                   style="margin-top: 5px;">
             上传文件
           </el-link>
         </el-upload>
@@ -153,10 +153,10 @@
   }
 
   div.panel-container {
-    height: 140px;
-    width: 560px;
+    height: 120px;
+    width: 450px;
     border: 1px solid #efefef;
-    margin-top: 25px;
+    margin-top: 10px;
     display: flex;
   }
 
@@ -170,14 +170,14 @@
   }
 
   div.img-container img {
-    width: 70px;
+    width: 50px;
   }
 
   div.info-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 15px;
+    padding: 5px;
   }
 
   div.info-container span.title {
@@ -188,6 +188,6 @@
     text-align: left;
     color: gray;
     font-size: small;
-    margin-top: 10px;
+    margin-top: 5px;
   }
 </style>

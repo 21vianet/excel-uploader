@@ -44,7 +44,7 @@
             if (this.needToUpdateProgress) {
               this.successCount = res.data.number
               this.allCount = res.data.allNumber
-              this.curPercentage = Math.round(this.successCount * 10000 / this.allCount) / 100
+              this.curPercentage = Math.round(this.successCount * 10000 / this.allCount) / 100 || 0
               setTimeout(this.updateProgressMethod, 300)
             }
           })
@@ -106,7 +106,10 @@
 
 <style scoped>
   div.step2-container {
-    margin-top: 165px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -115,11 +118,13 @@
   div.step2-container span.percentage {
     color: #2387c0;
     font-size: large;
+    text-align: center;
   }
 
   div.step2-container span.tip {
     color: gray;
     font-size: small;
+    text-align: center;
     margin-top: 30px;
     display: block;
   }
