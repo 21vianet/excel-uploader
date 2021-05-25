@@ -44,7 +44,6 @@
    DownloadTemplateUrl: '',
    DownloadTemplateRequestBody: {},
    DownloadErrorMessageUrl: '',
-   DownloadErrorMessageRequestBody: {},
    UploadProcessPercentUrl: '',
    UploadFileUrl: ''
  }

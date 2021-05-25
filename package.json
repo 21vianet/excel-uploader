@@ -11,7 +11,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "@21vianet/excel-uploader": "^1.0.4",
+    "@21vianet/excel-uploader": "^1.0.9",
     "axios": "^0.21.1",
     "element-ui": "^2.13.0",
     "vue": "^2.5.2"

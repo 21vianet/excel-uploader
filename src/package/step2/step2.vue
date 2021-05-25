@@ -44,7 +44,7 @@
             if (this.needToUpdateProgress) {
               this.successCount = res.data.number
               this.allCount = res.data.allNumber
-              this.curPercentage = Math.round(this.successCount * 10000 / this.allCount) / 100
+              this.curPercentage = Math.round(this.successCount * 10000 / this.allCount) / 100 || 0
               setTimeout(this.updateProgressMethod, 300)
             }
           })

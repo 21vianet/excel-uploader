@@ -68,12 +68,6 @@
         type: String,
         default: ''
       },
-      DownloadErrorMessageRequestBody: {
-        type: Object,
-        default: function () {
-          return {}
-        }
-      },
       uploadResult: {
         type: Object,
         default: null
@@ -90,9 +84,6 @@
         if (!this.DownloadErrorMessageUrl) {
           this.completeUpload = true
           this.errorMessage = '请提供有效的导出异常信息的API'
-        } else if (!this.DownloadErrorMessageRequestBody) {
-          this.completeUpload = true
-          this.errorMessage = '请提供有效的导出异常信息请求的Body'
         } else {
           this.downloading = true
           ExportErrorMessage(this.DownloadErrorMessageUrl, this.downloadErrorParams).then((res) => {
@@ -105,7 +96,7 @@
             link.click()
             URL.revokeObjectURL(link.href)
             document.body.removeChild(link)
-            this.$message.success('下载模版成功!')
+            this.$message.success('导出异常信息成功!')
           }).catch((err) => {
             this.errorMessage = err.message
             this.$message.error('网络连接错误')

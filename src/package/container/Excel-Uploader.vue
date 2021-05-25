@@ -19,7 +19,6 @@
            :upload-file-url="config.UploadFileUrl"></step2>
     <step3 v-if="currentStep === 3"
            :download-error-message-url="config.DownloadErrorMessageUrl"
-           :download-error-message-request-body="config.DownloadErrorMessageRequestBody"
            :upload-result="result"
            @backToMenu="backToMenu"
            @reUpload="reUpload">
@@ -43,7 +42,6 @@
             DownloadTemplateUrl: '',
             DownloadTemplateRequestBody: {},
             DownloadErrorMessageUrl: '',
-            DownloadErrorMessageRequestBody: {},
             MaxUploadFileSize: 5,
             UploadProcessPercentUrl: '',
             UploadFileUrl: ''
